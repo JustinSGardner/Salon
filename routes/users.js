@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
             req.session.username = username
             res.redirect('/')
         } else {
-            res.sendStatus(401)
+            res.redirect('/users/signup');
         }
     })
 })

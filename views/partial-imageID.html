@@ -44,7 +44,6 @@ ${(favData.length < 1) ? ` <form method="POST" action="/image/like/${imgData.id}
         </div>
         <div class="collapsible-body">
             <form action="/image/add/${imgData.id}" method="POST">
-                <input type="hidden" name="user_id" value="2" />
                 <label>Write a review
                     <textarea class="blue-grey lighten-3" name="review_text"></textarea>
                 </label>
