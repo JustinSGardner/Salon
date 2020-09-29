@@ -7,6 +7,9 @@ const express = require('express'),
 
 //GET render and data for images searched
 router.get('/page/:number?', async (req, res) => {
+    if (!req.session.is_logged_in) {
+        res.redirect('/')
+    } else {
     res.render('template', {
         locals: {
             title: 'Search',
@@ -18,7 +21,7 @@ router.get('/page/:number?', async (req, res) => {
             partial: 'partial-image',
         },
     });
-});
+}});
 router.post('/page/:number?', async (req, res) => {
     res.render('template', {
         locals: {

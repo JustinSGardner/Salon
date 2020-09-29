@@ -7,56 +7,86 @@ nav {
   height: auto;
   margin: 1.5%;
 }
+
 .search-form {
   display: none;
 }
-h1{
+
+.add-comment {
+  display: none;
+}
+
+.see-comment {
+  display: none;
+}
+h1 {
   font-size: 2.3rem;
-  margin-top: 8px;
+  margin-top: 4px;
   margin-bottom: 8px;
 }
-h2{
+
+h2 {
   font-size: 2rem;
   margin-top: 0px;
   margin-bottom: 0px;
 }
-blockquote{
-  margin: 16px 0;
+
+blockquote {
+  margin: 8px 0;
   padding-left: 0.5rem;
-  border-left: 6px solid #283593; 
+  border-left: 6px solid #283593;
 }
-  /* label color */
-  .input-field label {
-    color: #eceff1;
-  }
+
+textarea {
+  height: 6rem;
+  width: 34rem
+}
+
+/* label color */
+.input-field label {
+  color: #eceff1;
+}
+
 /* label focus color */
-.input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+.input-field input[type=text]:focus+label,
+.materialize-textarea:focus:not([readonly])+label {
   color: #536dfe !important;
- }
+}
 
 /* label underline focus color */
- .input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+.input-field input[type=text]:focus,
+.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #536dfe !important;
   box-shadow: 0 1px 0 0 #536dfe !important;
- }
-  /* icon prefix focus color */
-  .input-field .prefix.active {
-    color: #eceff1;
-  }
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #eceff1;
+}
+
 .show {
   display: block;
 }
 
+
 .search {
   cursor: pointer;
 }
+
 .noshadow {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
 
-.logo{
+#fav:hover {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.logo {
   width: 100px;
   height: auto;
   margin-top: 5px;
@@ -65,7 +95,7 @@ blockquote{
   transition: none
 }
 
-.login-logo{
+.login-logo {
   width: 120px;
   height: auto;
   margin-top: 5px;
@@ -112,8 +142,9 @@ main {
 
   img {
     opacity: 0.75;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ;
   }
+
   img:hover {
     opacity: 1;
   }
@@ -125,5 +156,24 @@ main {
   body {
     background-color: #eceff1;
     color: #263238;
+  }
+}
+
+
+/****************************************/
+.comment-form {
+  /* display: none; */
+}
+
+.add-comment p {
+  display: inline-block;
+  background-color: #283593;
+  padding: 10px;
+  border: 1px solid white;
+}
+
+@media screen and (max-width: 780px) {
+  li.search {
+    display: none;
   }
 }
