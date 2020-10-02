@@ -34,13 +34,13 @@ class FavoritesList {
       return error.message;
     }
   }
-  static async addFavorite(user_id, object_id, is_liked, title, date) {
+  static async addFavorite(user_id, object_id, is_liked, title, date, imgURL) {
     try {
       const response = await db.result(
         `
-                INSERT INTO favorites (user_id, object_id, is_liked, title, date)
-                VALUES ($1, $2, TRUE, $3, $4);`,
-        [user_id, object_id, is_liked, title, date]
+                INSERT INTO favorites (user_id, object_id, is_liked, title, date, imgURL)
+                VALUES ($1, $2, TRUE, $3, $4, $5);`,
+        [user_id, object_id, is_liked, title, date, imgURL]
       );
       console.log(response);
       return response;

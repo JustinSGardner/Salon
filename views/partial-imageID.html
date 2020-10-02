@@ -17,67 +17,114 @@ ${(favData.length < 1) ? ` <form method="POST" action="/image/like/${imgData.id}
         </button>
     </form>
     `}
-
-
-<!-- art image and info -->
-<div class="art_and_info" style="margin-left: 4.5%; margin-right: 4.5%; max-width: 1500px;">
-    <div class="art_image">
-        <img class="materialboxed" width="88%" alt= "${imgData.alt_text}" src="${imgData.url}/full/full/0/default.jpg" style="opacity: 1;" />
+    <!-- art image and info -->
+    <div class="art_and_info" style="margin-left: 4.5%; margin-right: 4.5%; max-width: 1500px;">
+        <div class="art_image">
+            <img class="materialboxed" width="88%" alt="${imgData.alt_text}"
+                src="${imgData.url}/full/full/0/default.jpg" style="opacity: 1;" />
+        </div>
+        <div class="art_info">
+            <h2>${imgData.artist_display.split(/[\n$]/)[0]}</h2>
+            <span style="font-size: small; white-space: pre-wrap;">
+                ${imgData.artist_display.split(/[\n$]/)[1]}
+            </span>
+            <h1>
+                <strong>${imgData.title}</strong> | ${imgData.date_display}
+            </h1>
+            <span style="font-size: small; margin-bottom: 0px">
+                ${imgData.medium_display}
+            </span>
+            ${imgData.description != null ? `
+            <blockquote style="white-space: pre-line; font-size: small; margin-bottom: 0px">${imgData.description}
+            </blockquote>` : `` }
+        </div>
     </div>
-    <div class="art_info">
-        <h2>${imgData.artist_display.split(/[\n$]/)[0]}</h2>
-        <span style="font-size: small; white-space: pre-wrap;">${imgData.artist_display.split(/[\n$]/)[1]}</span>
-        <h1><strong>${imgData.title}</strong> | ${imgData.date_display}</h1>
-        <span style="font-size: small; margin-bottom: 0px">${imgData.medium_display}</span> 
-        <blockquote style="white-space: pre-line; font-size: small; margin-bottom: 0px">${imgData.description}
-        </blockquote>
-    </div>
-</div>
-
-
-<ul class="collapsible">
-
-    <!-- add review -->
-    <li>
-        <div class="collapsible-header blue-grey darken-3">
-            <i class="material-icons">create</i>Add a Review
-        </div>
-        <div class="collapsible-body">
-            <form action="/image/add/${imgData.id}" method="POST">
-                <label>Write a review
-                    <textarea class="blue-grey lighten-3" name="review_text"></textarea>
-                </label>
-                <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">
-                    Post
-                    <i class="material-icons right">send</i>
-                </button>
-            </form>
-        </div>
-    </li>
-
-
-    <!-- read reviews -->
-    <li>
-        <div class="collapsible-header blue-grey darken-3">
-            <i class="material-icons">format_quote</i>See All Reviews
-        </div>
-        <div class="collapsible-body">
-            <div class="container left-align">
-                ${data.map(item => { return `
-                    <div class="row">
-                        <h5><strong>${item.username}</strong></h5>
-                    </div>
-                    <div class="row">
-                        <blockquote align="left">
-                                <h6>"${item.review_text}"</h6>
-                        </blockquote>
-                    </div>
-                    <div class="row" style="font-size: small">
-                        -${item.date}-
-                    </div>
-                `}).join('')}
+    <ul class="collapsible">
+        <!-- add review -->
+        <li>
+            <div class="collapsible-header blue-grey darken-3">
+                <i class="material-icons">create</i>Add a Review
             </div>
-        </div>
-    </li>
+            <div class="collapsible-body">
+                <form action="/image/add/${imgData.id}" method="POST">
+                    <label>Write a review
+                        <div class="row">
+                            <textarea class="blue-grey lighten-3" name="review_text"></textarea></div>
+                    </label>
+                    <div class="row">
+                        <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">
+                            Post
+                            <i class="material-icons right">send</i>
+                        </button></div>
+                </form>
+            </div>
+        </li>
 
-</ul>
+
+        <!-- read reviews -->
+        <li>
+            <div class="collapsible-header blue-grey darken-3">
+                <i class="material-icons">format_quote</i>See All Reviews
+            </div>
+            <div class="collapsible-body">
+                ${data.map(item => { return `
+                <div class="row">
+                    <div class="col m4">
+                        <div class="card blue-grey darken-1" style="opacity: 100%;">
+                            <div class="card-content white-text" style="padding: 8px">
+                                <span class="card-title">${item.username}</span>
+                                <blockquote>"${item.review_text}"</blockquote>
+                                <div style="font-size: small">
+                                    -${item.date}-
+                                </div>
+                                <div class="card-action" style="padding-left: 0px; padding-right: 0px">
+                                    <a class="addComment"
+                                        style="cursor: pointer; font-size: small; margin-right:12px">Add a comment</a>
+                                    <a class="seeComment" style="cursor: pointer; font-size: small;">See all
+                                        comments(${(comData.length < 1) ? `0` : comData.map(comment=> {if (item.id ===
+                                            comment.review_id){ return 1}else{return 0}}).reduce((a,b) => a+b)})</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="see-comment">
+                    ${comData.map(comment => {if (item.id === comment.review_id)return `
+                    <div class="row" style="margin-left: 5%;">
+                        <div class="col m4">
+                            <div class="card blue-grey darken-1" style="opacity: 100%;">
+                                <div class="card-content white-text">
+                                    <span class="card-title">${comment.username}</span>
+                                    <blockquote>"${comment.comment_text}"</blockquote>
+                                    <div style="font-size: small">
+                                        -${comment.date}-
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `}).join('')}
+
+                </div>
+                <div class="add-comment" style="margin-left: 5%;">
+                    <div class="comment-form">
+                        <form action="/image/comment/${item.id}" method="POST">
+                            <input type="hidden" name="object_id" value="${imgData.id}">
+                            <label>Write a comment
+                                <div class="row">
+                                    <textarea class="blue-grey lighten-3" name="comment_text"></textarea></div>
+                            </label>
+                            <div class="row">
+                                <button class="btn waves-effect waves-light indigo darken-4" type="submit"
+                                    name="action">
+                                    Post
+                                    <i class="material-icons right">send</i>
+                                </button></div>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
+                </div>`}).join('')}
+            </div>
+        </li>
+    </ul>
